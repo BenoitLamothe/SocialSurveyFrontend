@@ -1,3 +1,5 @@
+import './layout/layout'
+
 function requireAll(r) {
     r.keys().forEach(r);
 }

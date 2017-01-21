@@ -19,7 +19,8 @@ const config = {
             'angular'
         ],
         styles: [
-            './src/less/styles.less',
+            './src/layout/layout.scss',
+            './src/less/styles.less'
         ],
         app: [
             './src/App.js'
