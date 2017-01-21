@@ -1,0 +1,6 @@
+<div layout="column" class="response-container">
+	<div layout="row" layout-align="start center" class="content" ng-repeat="response in $ctrl.nuanceResponses">
+		<button class="emotion-label {{response.emotion}}">{{response.emotion}}</button>
+		<span class="analyzed-text">{{response.text}}</span>
+	</div>
+</div>

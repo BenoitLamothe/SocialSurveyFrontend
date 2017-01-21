@@ -1,0 +1,82 @@
+ss-emotion-view {
+  margin-top: 50px;
+
+  .surprise {
+    background-color: #FFDF00;
+  }
+
+  .afraid {
+    background-color: #E87A0C;
+  }
+
+  .anger {
+    background-color: #FF0000;
+  }
+
+  .disgusted {
+    background-color: #910CE8;
+  }
+
+  .sadness {
+    background-color: #0D5AFF;
+  }
+
+  .joy {
+    background-color: #2CFF00;
+  }
+
+  .releaf {
+    background-color: #4CE8D0;
+  }
+
+  .shame {
+    background-color: #360F0C;
+  }
+
+  .fear {
+    background-color: #000;
+  }
+
+  .guilt {
+    background-color: #06374F;
+  }
+
+  .love {
+    background-color: #E700FF;
+  }
+
+  .response-container {
+    background-color: @background-color;
+    padding: 5px;
+    height: 40vh;
+    overflow: auto;
+    border-radius: 3px;
+
+    .content {
+      border-radius: 3px;
+      min-height: 50px;
+      max-height: 50px;
+      padding: 5px;
+      box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12);
+      margin: 5px;
+      background-color: #FFF;
+
+      .emotion-label {
+        width: 122px;
+        border-radius: 3px;
+      }
+
+      .analyzed-text {
+        padding-left: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        line-height: 16px;     /* fallback */
+        max-height: 32px;      /* fallback */
+        -webkit-line-clamp: 2; /* number of lines to show */
+        -webkit-box-orient: vertical;
+      }
+    }
+  }
+
+}

@@ -1,1 +1,21 @@
-<div>hello {{$ctrl.name}}</div>
+<div layout="column"
+     layout-align="center center">
+	<div class="container">
+		<div layout="row">
+			<input placeholder="Type search keywords"
+			       ng-model="$ctrl.searchText"/>
+			<button class="button" type="submit"
+			        ng-click="$ctrl.submitSearch()">Search
+			</button>
+		</div>
+		<div class="results-container"
+		     layout="column"
+		     ng-if="$ctrl.isSearchSuccessfull">
+			<div layout="row">
+				<img style="width: 100%;"
+				     src="http://canvasjs.com/wp-content/uploads/images/gallery/gallery-overview/js-chart.jpg">
+			</div>
+			<ss-emotion-view></ss-emotion-view>
+		</div>
+	</div>
+</div>
