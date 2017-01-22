@@ -58,6 +58,20 @@ export class BarChart extends BaseChart {
         this._bars.add(this, this._mainChart);
     }
 
+    dataChanged() {
+        // Find x domain
+        const xDomain = this._dataset.map(d => this._selector.x(d));
+        const yDomain = extent(this._dataset, d => this._selector.y(d));
+
+        yDomain[0] -= (yDomain[0] * 0.5);
+        yDomain[1] += (yDomain[1] * 0.05);
+
+        this._yAxis.scale.domain = yDomain;
+        this._xAxis.scale.domain = xDomain;
+
+        this._bars.redraw();
+    }
+
     redraw() {
         super.redraw();
 
