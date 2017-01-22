@@ -1,4 +1,4 @@
-import {extent, select, min} from 'd3';
+import {extent, min} from 'd3';
 
 import {BaseChart} from './BaseChart';
 import {Scale, ScaleType} from './Scale';
