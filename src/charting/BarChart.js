@@ -69,6 +69,8 @@ export class BarChart extends BaseChart {
         this._yAxis.scale.domain = yDomain;
         this._xAxis.scale.domain = xDomain;
 
+        this._xAxis.redraw();
+        this._yAxis.redraw();
         this._bars.redraw();
     }
 
