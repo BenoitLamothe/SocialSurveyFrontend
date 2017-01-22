@@ -8,7 +8,7 @@ function SSAppController($interval, $scope, $timeout) {
     const ctrl = this;
 
     ctrl.$onInit = function () {
-        ctrl.wsClient = new WebSocket('ws://localhost:8080/');
+        ctrl.wsClient = new WebSocket('ws://172.31.195.115:8080/');
         ctrl.wsClient.onmessage = ctrl.onWebSocketMessage;
         ctrl.searchRequest = {
             command: 'search',
@@ -44,6 +44,8 @@ function SSAppController($interval, $scope, $timeout) {
     ctrl.submitSearch = function () {
         ctrl.isSearchSuccessfull = true;
         ctrl.emotionData = [];
+        ctrl.aggregateData = [];
+        ctrl.aggregateCountry = {};
 
         if (ctrl.wsClient.readyState === 1) {
             ctrl.wsClient.send(JSON.stringify(ctrl.searchRequest));
@@ -74,6 +76,7 @@ function SSAppController($interval, $scope, $timeout) {
                 }
             ];
         }
+
 
         if (data.location) {
             ctrl.aggregateCountry = Object.assign({}, ctrl.aggregateCountry, { [data.location]: (ctrl.aggregateCountry[data.location] || 0) + 1 })
