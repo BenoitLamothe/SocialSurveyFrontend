@@ -130,13 +130,19 @@ function SSWorldViewController($element) {
         json("https://unpkg.com/world-atlas@1/world/110m.json", function(error, world) {
             if (error) throw error;
 
+            debugger;
+
             const sphere = {type: "Sphere"},
                 land = topojson.feature(world, world.objects.land);
+
+            const usaIndex = world.objects.countries.geometries.findIndex(x => x.id === '840');
+            const usa = topojson.feature(world, world.objects.countries.geometries[usaIndex]);
 
             render = function() {
                 context.clearRect(0, 0, width, height);
                 context.beginPath(), path(sphere), context.fillStyle = "#011627", context.fill();
-                context.beginPath(), path(land), context.fillStyle = "#2EC4B6", context.fill();
+                context.beginPath(), path(land), context.fillStyle = "#FFF", context.fill();
+                context.beginPath(), path(usa), context.fillStyle = '#2EC4B6', context.fill();
                 context.beginPath(), path(sphere), context.stroke();
             };
 
