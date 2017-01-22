@@ -24,6 +24,7 @@ function SSAppController($interval, $scope) {
         };
         ctrl.availableEmotions = ['surprise', 'anger', 'disgust', 'fear', 'guilt', 'joy', 'love', 'releaf', 'sadness', 'shame'];
         ctrl.emotionData = [];
+        ctrl.aggregateData = [];
     };
 
     ctrl.addOrRemoveProvider = function (provider) {
@@ -47,13 +48,23 @@ function SSAppController($interval, $scope) {
     };
 
     ctrl.onWebSocketMessage = function (event) {
-        const eventData =JSON.parse(event.data);
+        const eventData = JSON.parse(event.data);
         let data = Object.assign(eventData, {
             text: eventData.raw_text,
             emotion: eventData.sentiment[0].sentiment.toLowerCase().replace('emotion_', ''),
         });
         ctrl.emotionData.unshift(data);
 
+        const emotionIndex = ctrl.aggregateData.findIndex(x => x.emotion === data.emotion);
+        if(emotionIndex > -1) {
+            ctrl.aggregateData[emotionIndex].count++;
+            ctrl.aggregateData = [...ctrl.aggregateData];
+        } else {
+            ctrl.aggregateData = [...ctrl.aggregateData, {
+                emotion: data.emotion,
+                count: 1
+            }];
+        }
         console.log(eventData);
         $scope.$apply();
     };

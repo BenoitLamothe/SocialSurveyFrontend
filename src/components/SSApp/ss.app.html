@@ -39,11 +39,11 @@
             <ss-loader ng-if="$ctrl.emotionData.length === 0"></ss-loader>
             <div ng-if="$ctrl.emotionData.length > 0" layout="column">
                 <div layout="row" layout-align=" center">
-                    <ss-emotion-chart flex available-emotions="::$ctrl.availableEmotions"
+                    <ss-emotion-chart flex
                                       data="$ctrl.emotionData"></ss-emotion-chart>
                     <ss-world-view></ss-world-view>
                 </div>
-				<button ng-click="$ctrl.stopGettingData()">Stop getting data</button>
+                <button ng-click="$ctrl.stopGettingData()">Stop getting data</button>
                 <ss-emotion-view data="$ctrl.emotionData"></ss-emotion-view>
             </div>
         </div>

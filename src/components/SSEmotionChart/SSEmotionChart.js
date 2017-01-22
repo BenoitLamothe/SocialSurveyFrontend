@@ -6,19 +6,11 @@ function SSEmotionChartController($element, $timeout) {
     const ctrl = this;
     let chart = null;
 
+    let changeDebounce = null;
+
     const margin = {top: 20, right: 20, bottom: 30, left: 40};
 
     ctrl.$onInit = function () {
-        ctrl.dataset = [
-            {
-                emotion: 'Sadness',
-                count: 80,
-            },
-            {
-                emotion: 'Happiness',
-                count: 60
-            }
-        ];
         ctrl.selector = {
             x: d => d.emotion,
             y: d => d.count,
@@ -28,7 +20,10 @@ function SSEmotionChartController($element, $timeout) {
 
     ctrl.$onChanges = function(changes) {
         if(changes.dataset) {
-            chart.dataset = changes.dataset.currentValue;
+            $timeout.cancel(changeDebounce);
+            changeDebounce = $timeout(() => {
+                chart.dataset = changes.dataset.currentValue;
+            }, 1000);
         }
     };
 
@@ -48,7 +43,6 @@ const SSEmotionChart = {
     controller: SSEmotionChartController,
     templateUrl: template,
     bindings: {
-        availableEmotions: '<',
         data: '<',
     },
 };
