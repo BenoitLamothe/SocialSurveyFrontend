@@ -3,19 +3,19 @@
      class="provider-counter">
 	<div layout="row"
 	     layout-align="start center"
-	     style="margin-right:10px;">
+	     style="margin-right:10px;" class="counter-container">
 		<div class="icon twitter active">
 			<i class="fa fa-twitter"
 			   aria-hidden="true"></i>
 		</div>
-		<span style="padding-left:5px;">: {{($ctrl.data | filter: {provider: 'twitter'}).length}}</span>
+		<span> {{($ctrl.data | filter: {provider: 'twitter'}).length}}</span>
 	</div>
 	<div layout="row"
-	     layout-align="start center">
-		<div class="icon reddit active">
+	     layout-align="start center" class="counter-container">
+		<div class="icon reddit active"  style="border-radius: 0;">
 			<i class="fa fa-reddit-alien"></i>
 		</div>
-		<span style="padding-left:5px;">: {{($ctrl.data | filter: {provider: 'reddit'}).length}}</span>
+		<span> {{($ctrl.data | filter: {provider: 'reddit'}).length}}</span>
 	</div>
 </div>
 <div layout="column"
