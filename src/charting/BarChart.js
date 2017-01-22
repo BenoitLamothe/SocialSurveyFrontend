@@ -233,7 +233,8 @@ class Bars {
             .transition()
             .duration(300)
             .attr('x', d => this._selector.x(d) + (barWidth / 2))
-            .attr('y', d => this._selector.y(d) - 10);
+            .attr('y', d => this._selector.y(d) - 10)
+            .text(d => this._selector.value(d));;
     }
 
     _getColor(emotion) {
@@ -243,15 +244,15 @@ class Bars {
         case 'afraid':
             return '#E87A0C';
         case 'anger':
-            return '#FF0000';
-        case 'disgusted':
-            return '#910CE8';
+            return '#D90429';
+        case 'disgust':
+            return '#451D68';
         case 'sadness':
-            return '#0D5AFF';
+            return '#1D2368';
         case 'joy':
-            return '#2CFF00';
+            return '#1E4C11';
         case 'relieve':
-            return '#4CE8D0';
+            return '#8D99AE';
         case 'shame':
             return '#360F0C';
         case 'fear':
@@ -259,7 +260,7 @@ class Bars {
         case 'guilt':
             return '#06374F';
         case 'love':
-            return '#E700FF';
+            return '#F45B69';
         }
     }
 

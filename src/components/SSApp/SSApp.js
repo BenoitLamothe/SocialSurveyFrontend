@@ -3,12 +3,12 @@
  */
 import template from './ss.app.html'
 
-SSAppController.$inject = ['$interval', '$scope'];
-function SSAppController($interval, $scope) {
+SSAppController.$inject = ['$interval', '$scope', '$timeout'];
+function SSAppController($interval, $scope, $timeout) {
     const ctrl = this;
 
     ctrl.$onInit = function () {
-        ctrl.wsClient = new WebSocket('ws://localhost:8080/');
+        ctrl.wsClient = new WebSocket('ws://172.31.195.115:8080/');
         ctrl.wsClient.onmessage = ctrl.onWebSocketMessage;
         ctrl.searchRequest = {
             command: 'search',
@@ -32,7 +32,7 @@ function SSAppController($interval, $scope) {
         if (providerIndex === -1) {
             ctrl.searchRequest.providers.push(provider);
         } else {
-            ctrl.searchRequest.providers.splice(providerIndex, 1)
+            ctrl.searchRequest.providers.splice(providerIndex, 1);
         }
     };
 
@@ -43,7 +43,14 @@ function SSAppController($interval, $scope) {
     ctrl.submitSearch = function () {
         ctrl.isSearchSuccessfull = true;
         ctrl.emotionData = [];
-        ctrl.wsClient.send(JSON.stringify(ctrl.searchRequest));
+
+        if (ctrl.wsClient.readyState === 1) {
+            ctrl.wsClient.send(JSON.stringify(ctrl.searchRequest));
+        } else {
+            $timeout(() => {
+                ctrl.generateFakeDataAtRandomIntervals();
+            }, 2000);
+        }
     };
 
     ctrl.onWebSocketMessage = function (event) {
@@ -77,39 +84,41 @@ function SSAppController($interval, $scope) {
     ctrl.generateFakeDataAtRandomIntervals = function () {
         ctrl.dataInterval = $interval(() => {
             const randomData = getRandomInt(0, 9);
+            $timeout(() => {
+                switch (randomData) {
+                case 0:
+                    ctrl.emotionData.unshift({ provider: 'twitter', emotion: 'surprise', text: "In every way - class, intelligence, SHEER NUMBERS - the #WomensMarch has outdone #DonaldTrump's inauguration. Oops!! " });
+                    break;
+                case 1:
+                    ctrl.emotionData.unshift({ provider: 'twitter', emotion: 'anger', text: "All who desire a just society must oppose #DonaldTrump b/c he is a fascist & a danger to democracy" });
+                    break;
+                case 2:
+                    ctrl.emotionData.unshift({ provider: 'twitter', emotion: 'disgust', text: "All who desire a just society must oppose #DonaldTrump b/c he is a fascist & a danger to democracy" });
+                    break;
+                case 3:
+                    ctrl.emotionData.unshift({ provider: 'twitter', emotion: 'fear', text: "All who desire a just society must oppose #DonaldTrump b/c he is a fascist & a danger to democracy" });
+                    break;
+                case 4:
+                    ctrl.emotionData.unshift({ provider: 'twitter', emotion: 'guilt', text: "All who desire a just society must oppose #DonaldTrump b/c he is a fascist & a danger to democracy" });
+                    break;
+                case 5:
+                    ctrl.emotionData.unshift({ provider: 'twitter', emotion: 'joy', text: "All who desire a just society must oppose #DonaldTrump b/c he is a fascist & a danger to democracy" });
+                    break;
+                case 6:
+                    ctrl.emotionData.unshift({ provider: 'reddit', emotion: 'love', text: "All who desire a just society must oppose #DonaldTrump b/c he is a fascist & a danger to democracy" });
+                    break;
+                case 7:
+                    ctrl.emotionData.unshift({ provider: 'reddit', emotion: 'relieve', text: "All who desire a just society must oppose #DonaldTrump b/c he is a fascist & a danger to democracy" });
+                    break;
+                case 8:
+                    ctrl.emotionData.unshift({ provider: 'reddit', emotion: 'sadness', text: "All who desire a just society must oppose #DonaldTrump b/c he is a fascist & a danger to democracy" });
+                    break;
+                case 9:
+                    ctrl.emotionData.unshift({ provider: 'reddit', emotion: 'shame', text: "All who desire a just society must oppose #DonaldTrump b/c he is a fascist & a danger to democracy" });
+                    break;
+                }
+            })
 
-            switch (randomData) {
-            case 0:
-                ctrl.emotionData.unshift({ provider: 'twitter', emotion: 'surprise', text: "In every way - class, intelligence, SHEER NUMBERS - the #WomensMarch has outdone #DonaldTrump's inauguration. Oops!! " });
-                break;
-            case 1:
-                ctrl.emotionData.unshift({ provider: 'twitter', emotion: 'anger', text: "All who desire a just society must oppose #DonaldTrump b/c he is a fascist & a danger to democracy" });
-                break;
-            case 2:
-                ctrl.emotionData.unshift({ provider: 'twitter', emotion: 'disgust', text: "All who desire a just society must oppose #DonaldTrump b/c he is a fascist & a danger to democracy" });
-                break;
-            case 3:
-                ctrl.emotionData.unshift({ provider: 'twitter', emotion: 'fear', text: "All who desire a just society must oppose #DonaldTrump b/c he is a fascist & a danger to democracy" });
-                break;
-            case 4:
-                ctrl.emotionData.unshift({ provider: 'twitter', emotion: 'guilt', text: "All who desire a just society must oppose #DonaldTrump b/c he is a fascist & a danger to democracy" });
-                break;
-            case 5:
-                ctrl.emotionData.unshift({ provider: 'twitter', emotion: 'joy', text: "All who desire a just society must oppose #DonaldTrump b/c he is a fascist & a danger to democracy" });
-                break;
-            case 6:
-                ctrl.emotionData.unshift({ provider: 'reddit', emotion: 'love', text: "All who desire a just society must oppose #DonaldTrump b/c he is a fascist & a danger to democracy" });
-                break;
-            case 7:
-                ctrl.emotionData.unshift({ provider: 'reddit', emotion: 'relieve', text: "All who desire a just society must oppose #DonaldTrump b/c he is a fascist & a danger to democracy" });
-                break;
-            case 8:
-                ctrl.emotionData.unshift({ provider: 'reddit', emotion: 'sadness', text: "All who desire a just society must oppose #DonaldTrump b/c he is a fascist & a danger to democracy" });
-                break;
-            case 9:
-                ctrl.emotionData.unshift({ provider: 'reddit', emotion: 'shame', text: "All who desire a just society must oppose #DonaldTrump b/c he is a fascist & a danger to democracy" });
-                break;
-            }
         }, 500);
     };
 
