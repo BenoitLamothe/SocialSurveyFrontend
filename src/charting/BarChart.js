@@ -182,7 +182,7 @@ class Bars {
             .attr('class', 'diff')
             .attr('x', d => this._selector.x(d) + xDiff)
             .attr('y', baseline)
-            .style('fill', '#011627')
+            .style('fill', 'transparent')
             .attr('height', d => this._selector.y(d) - baseline)
             .attr('width', newBarWidth);
 
@@ -190,7 +190,7 @@ class Bars {
             .transition()
             .duration(300)
             .attr('x', d => this._selector.x(d) + (barWidth / 2))
-            .attr('y', baseline - 10)
+            .attr('y', d => this._selector.y(d) - 10)
             .attr('text-anchor', 'middle')
             .style('opacity', 0)
             .text(d => this._selector.value(d));

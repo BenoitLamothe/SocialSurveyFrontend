@@ -23,7 +23,7 @@ function SSEmotionChartController($element, $timeout) {
             $timeout.cancel(changeDebounce);
             changeDebounce = $timeout(() => {
                 chart.dataset = changes.dataset.currentValue;
-            }, 1000);
+            }, 200);
         }
     };
 
