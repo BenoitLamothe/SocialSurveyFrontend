@@ -43,8 +43,7 @@ function SSAppController($interval, $scope) {
     ctrl.submitSearch = function () {
         ctrl.isSearchSuccessfull = true;
         ctrl.emotionData = [];
-        ctrl.generateFakeDataAtRandomIntervals();
-        // ctrl.wsClient.send(JSON.stringify(ctrl.searchRequest));
+        ctrl.wsClient.send(JSON.stringify(ctrl.searchRequest));
     };
 
     ctrl.onWebSocketMessage = function (event) {

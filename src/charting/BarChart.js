@@ -166,12 +166,29 @@ class Bars {
         const xDiff = barWidth > maxWidth ? (barWidth - newBarWidth) / 2 : 0;
         const baseline = min(this._dataFactory(), d => this._selector.y(d));
 
-        const newBars = bars.enter();
+        const newBars = bars.enter()
+            .append('g')
+            .attr('class', 'bar')
+            .on('mouseenter', (d, i, n) => {
+                select(n[i]).select('text')
+                    .transition()
+                    .duration(300)
+                    .attr('font-size', 15)
+                    .style('fill', this._getColor(d.emotion));
+            })
+            .on('mouseout', (d, i, n) => {
+                select(n[i]).select('text')
+                    .transition()
+                    .duration(300)
+                    .attr('font-size', 13)
+                    .style('fill', '#FFF');
+            });;
 
         // NOTE(Olivier): Add new bars
         newBars.append('rect')
             .transition()
             .duration(300)
+            .attr('class', 'main')
             .attr('x', d => this._selector.x(d) + xDiff)
             .attr('y', d => this._selector.y(d))
             .style('fill', (d, i) => this._getColor(i))
@@ -216,7 +233,7 @@ class Bars {
             .transition()
             .duration(300)
             .attr('x', d => this._selector.x(d) + (barWidth / 2))
-            .attr('y', baseline - 10);
+            .attr('y', d => this._selector.y(d) - 10);
     }
 
     _getColor(emotion) {
