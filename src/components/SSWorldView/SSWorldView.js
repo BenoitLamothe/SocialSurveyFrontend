@@ -9,7 +9,7 @@ import {
     drag,
     mouse,
     json,
-    select
+    select,
 } from 'd3'
 
 var acos = Math.acos,
@@ -85,6 +85,11 @@ function dot(v0, v1) {
 SSWorldViewController.$inject = ['$element'];
 function SSWorldViewController($element) {
     let ctrl = this;
+    let render = function() {};
+
+    ctrl.$onChanges = function() {
+        render();
+    };
 
     ctrl.$postLink = function () {
 
@@ -104,7 +109,7 @@ function SSWorldViewController($element) {
             .projection(projection)
             .context(context);
 
-        let render = function() {},
+        let
             v0, // Mouse position in Cartesian coordinates at start of drag gesture.
             r0, // Projection rotation as Euler angles at start.
             q0; // Projection rotation as versor at start.
@@ -133,14 +138,17 @@ function SSWorldViewController($element) {
             const sphere = {type: "Sphere"},
                 land = topojson.feature(world, world.objects.land);
 
-            const usaIndex = world.objects.countries.geometries.findIndex(x => x.id === '840');
-            const usa = topojson.feature(world, world.objects.countries.geometries[usaIndex]);
-
             render = function() {
+                const geos = world.objects.countries.geometries
+                    .filter(x => Object.keys(ctrl.dataset|| {}).findIndex(y => y === x.id) > -1)
+                    .map(x => ({id: x.id, feature: topojson.feature(world, x)}));
+
                 context.clearRect(0, 0, width, height);
                 context.beginPath(), path(sphere), context.fillStyle = "#011627", context.fill();
                 context.beginPath(), path(land), context.fillStyle = "#FFF", context.fill();
-                context.beginPath(), path(usa), context.fillStyle = '#2EC4B6', context.fill();
+                geos.forEach(x => {
+                    context.beginPath(), path(x.feature), context.fillStyle = '#1abc9c', context.fill();
+                });
                 context.beginPath(), path(sphere), context.stroke();
             };
 
@@ -153,7 +161,9 @@ function SSWorldViewController($element) {
 const SSWorldView = {
     controller: SSWorldViewController,
     templateUrl: template,
-    bindings: {}
+    bindings: {
+        dataset: '<',
+    }
 };
 
 export default SSWorldView;

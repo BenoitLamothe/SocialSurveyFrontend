@@ -8,7 +8,7 @@ function SSAppController($interval, $scope, $timeout) {
     const ctrl = this;
 
     ctrl.$onInit = function () {
-        ctrl.wsClient = new WebSocket('ws://172.31.195.115:8080/');
+        ctrl.wsClient = new WebSocket('ws://localhost:8080/');
         ctrl.wsClient.onmessage = ctrl.onWebSocketMessage;
         ctrl.searchRequest = {
             command: 'search',
@@ -25,6 +25,7 @@ function SSAppController($interval, $scope, $timeout) {
         ctrl.availableEmotions = ['surprise', 'anger', 'disgust', 'fear', 'guilt', 'joy', 'love', 'relieve', 'sadness', 'shame'];
         ctrl.emotionData = [];
         ctrl.aggregateData = [];
+        ctrl.aggregateCountry = {};
     };
 
     ctrl.addOrRemoveProvider = function (provider) {
@@ -71,6 +72,11 @@ function SSAppController($interval, $scope, $timeout) {
                 count: 1
             }];
         }
+
+        if (data.location) {
+            ctrl.aggregateCountry = Object.assign({}, ctrl.aggregateCountry, {[data.location]: (ctrl.aggregateCountry[data.location] || 0) + 1})
+        }
+
         console.log(eventData);
         $scope.$apply();
     };
