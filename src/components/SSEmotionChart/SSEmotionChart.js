@@ -6,8 +6,6 @@ function SSEmotionChartController($element, $timeout) {
     const ctrl = this;
     let chart = null;
 
-    let changeDebounce = null;
-
     const margin = {top: 20, right: 20, bottom: 30, left: 40};
 
     ctrl.$onInit = function () {
@@ -20,10 +18,9 @@ function SSEmotionChartController($element, $timeout) {
 
     ctrl.$onChanges = function(changes) {
         if(changes.dataset) {
-            $timeout.cancel(changeDebounce);
-            changeDebounce = $timeout(() => {
+            if(chart) {
                 chart.dataset = changes.dataset.currentValue;
-            }, 200);
+            }
         }
     };
 
@@ -34,7 +31,6 @@ function SSEmotionChartController($element, $timeout) {
             const height = ctrl.target.clientHeight - margin.top - margin.bottom;
 
             chart = new BarChart(ctrl.target, width, height, margin, ctrl.selector, ctrl.dataset, {});
-
         });
     }
 }

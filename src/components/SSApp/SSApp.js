@@ -16,7 +16,7 @@ function SSAppController($interval, $scope, $timeout) {
             args: {
                 query: {
                     text: 'Obama',
-                    type: 'mixed',
+                    type: 'popular',
                     time: 'day',
                     max: 50,
                 }
