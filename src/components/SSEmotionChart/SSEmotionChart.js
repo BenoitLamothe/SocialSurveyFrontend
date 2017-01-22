@@ -43,7 +43,7 @@ const SSEmotionChart = {
     controller: SSEmotionChartController,
     templateUrl: template,
     bindings: {
-        data: '<',
+        dataset: '<',
     },
 };
 

@@ -40,7 +40,7 @@
             <div ng-if="$ctrl.emotionData.length > 0" layout="column">
                 <div layout="row" layout-align=" center">
                     <ss-emotion-chart flex
-                                      data="$ctrl.emotionData"></ss-emotion-chart>
+                                      dataset="$ctrl.aggregateData"></ss-emotion-chart>
                     <ss-world-view></ss-world-view>
                 </div>
                 <button ng-click="$ctrl.stopGettingData()">Stop getting data</button>
