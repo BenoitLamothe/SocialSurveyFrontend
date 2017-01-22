@@ -1,15 +1,38 @@
 ss-emotion-chart {
-  height: 22vh;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 
-  .bar {
-    fill: steelblue;
-  }
 
-  .bar:hover {
-    fill: brown;
-  }
+  #chart {
+    display: flex;
+    flex: 1;
 
-  .axis--x path {
-    display: none;
+    .x.axis {
+      path.domain {
+        stroke: transparent;
+      }
+      .tick  {
+        & > line {
+          stroke: #FFF;
+        }
+        & > text {
+          fill: #FFF;
+        }
+      }
+    }
+    .y.axis {
+      path.domain {
+        stroke: transparent;
+      }
+      .tick  {
+        & > line {
+          stroke: #FFF;
+        }
+        & > text {
+          fill: #FFF;
+        }
+      }
+    }
   }
 }
