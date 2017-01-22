@@ -2,7 +2,8 @@
      layout-align="center center">
 	<div class="container">
 		<div layout="row"
-		     style="margin-bottom: -2px;">
+			 layout-alig="start center"
+		     style="margin-bottom: 5px;">
 			<img ng-click="$ctrl.addOrRemoveProvider('twitter')"
 			     ng-class="{active:$ctrl.searchRequest.providers.indexOf('twitter') !== -1}"
 			     class="provider-icon"
@@ -25,6 +26,7 @@
 			       ng-model="$ctrl.searchRequest.args.query.text"/>
 			<button class="button"
 			        type="submit"
+					style="margin-left: 5px;"
 			        ng-click="$ctrl.submitSearch()">Search
 			</button>
 		</div>
