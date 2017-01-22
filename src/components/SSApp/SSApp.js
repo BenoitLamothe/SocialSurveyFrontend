@@ -22,7 +22,7 @@ function SSAppController($interval, $scope) {
                 }
             }
         };
-        ctrl.availableEmotions = ['surprise', 'anger', 'disgust', 'fear', 'guilt', 'joy', 'love', 'releaf', 'sadness', 'shame'];
+        ctrl.availableEmotions = ['surprise', 'anger', 'disgust', 'fear', 'guilt', 'joy', 'love', 'relieve', 'sadness', 'shame'];
         ctrl.emotionData = [];
         ctrl.aggregateData = [];
     };
@@ -102,7 +102,7 @@ function SSAppController($interval, $scope) {
                 ctrl.emotionData.unshift({ provider: 'reddit', emotion: 'love', text: "All who desire a just society must oppose #DonaldTrump b/c he is a fascist & a danger to democracy" });
                 break;
             case 7:
-                ctrl.emotionData.unshift({ provider: 'reddit', emotion: 'releaf', text: "All who desire a just society must oppose #DonaldTrump b/c he is a fascist & a danger to democracy" });
+                ctrl.emotionData.unshift({ provider: 'reddit', emotion: 'relieve', text: "All who desire a just society must oppose #DonaldTrump b/c he is a fascist & a danger to democracy" });
                 break;
             case 8:
                 ctrl.emotionData.unshift({ provider: 'reddit', emotion: 'sadness', text: "All who desire a just society must oppose #DonaldTrump b/c he is a fascist & a danger to democracy" });
