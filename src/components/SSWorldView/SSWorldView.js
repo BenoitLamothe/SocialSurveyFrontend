@@ -130,8 +130,6 @@ function SSWorldViewController($element) {
         json("https://unpkg.com/world-atlas@1/world/110m.json", function(error, world) {
             if (error) throw error;
 
-            debugger;
-
             const sphere = {type: "Sphere"},
                 land = topojson.feature(world, world.objects.land);
 
