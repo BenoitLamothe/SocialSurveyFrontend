@@ -210,7 +210,7 @@ class Bars {
         case 'afraid':
             return '#E87A0C';
         case 'anger':
-            return '#FF0000';
+            return '#D90429';
         case 'disgusted':
             return '#910CE8';
         case 'sadness':
@@ -218,7 +218,7 @@ class Bars {
         case 'joy':
             return '#2CFF00';
         case 'relieve':
-            return '#4CE8D0';
+            return '#8D99AE';
         case 'shame':
             return '#360F0C';
         case 'fear':

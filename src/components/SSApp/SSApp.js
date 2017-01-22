@@ -8,7 +8,7 @@ function SSAppController($interval, $scope, $timeout) {
     const ctrl = this;
 
     ctrl.$onInit = function () {
-        ctrl.wsClient = new WebSocket('ws://localhost:8080/');
+        ctrl.wsClient = new WebSocket('ws://172.31.195.115:8080/');
         ctrl.wsClient.onmessage = ctrl.onWebSocketMessage;
         ctrl.searchRequest = {
             command: 'search',
