@@ -41,7 +41,7 @@
                 <div layout="row" layout-align=" center">
                     <ss-emotion-chart flex
                                       dataset="$ctrl.aggregateData"></ss-emotion-chart>
-                    <ss-world-view></ss-world-view>
+                    <ss-world-view dataset="$ctrl.aggregateCountry"></ss-world-view>
                 </div>
                 <button ng-click="$ctrl.stopGettingData()">Stop getting data</button>
                 <ss-emotion-view data="$ctrl.emotionData"></ss-emotion-view>

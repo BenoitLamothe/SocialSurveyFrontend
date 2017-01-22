@@ -1,8 +1,12 @@
-import { extent, select, min } from 'd3';
+import {extent, min} from 'd3';
 
-import { BaseChart } from './BaseChart';
-import { Scale, ScaleType } from './Scale';
-import { Axis, AxisType } from './Axis';
+import {BaseChart} from './BaseChart';
+import {Scale, ScaleType} from './Scale';
+import {Axis, AxisType} from './Axis';
+
+function upperCaseFirst(str){
+    return str.charAt(0).toUpperCase() + str.substring(1);
+}
 
 export class BarChart extends BaseChart {
     constructor(target, width, height, margin, selector, dataset, opts) {
@@ -21,6 +25,9 @@ export class BarChart extends BaseChart {
             add: (axis) => {
                 axis._e.attr('transform', `translate(0, ${this.height})`);
             },
+            axis: {
+                tickFormat: [upperCaseFirst]
+            }
         });
 
         // Find y extent
@@ -108,21 +115,7 @@ class Bars {
             .data(this._dataFactory())
             .enter()
             .append('g')
-            .attr('class', 'bar')
-            .on('mouseenter', (d, i, n) => {
-                select(n[i]).select('text')
-                    .transition()
-                    .duration(300)
-                    .attr('font-size', 15)
-                    .style('fill', this._getColor(d.emotion));
-            })
-            .on('mouseout', (d, i, n) => {
-                select(n[i]).select('text')
-                    .transition()
-                    .duration(300)
-                    .attr('font-size', 13)
-                    .style('fill', '#FFF');
-            });
+            .attr('class', 'bar');
 
         bars.append('rect')
             .attr('class', 'main')
@@ -145,8 +138,7 @@ class Bars {
             .attr('x', d => this._selector.x(d) + (barWidth / 2))
             .attr('y', d => this._selector.y(d) - 10)
             .attr('text-anchor', 'middle')
-            .attr('font-size', 13)
-            .style('fill', '#FFF')
+            .style('fill', d => this._getColor(d.emotion))
             .text(d => this._selector.value(d));
 
         // NOTE(Olivier): Let's bind the underlying _draw method
@@ -168,21 +160,7 @@ class Bars {
 
         const newBars = bars.enter()
             .append('g')
-            .attr('class', 'bar')
-            .on('mouseenter', (d, i, n) => {
-                select(n[i]).select('text')
-                    .transition()
-                    .duration(300)
-                    .attr('font-size', 15)
-                    .style('fill', this._getColor(d.emotion));
-            })
-            .on('mouseout', (d, i, n) => {
-                select(n[i]).select('text')
-                    .transition()
-                    .duration(300)
-                    .attr('font-size', 13)
-                    .style('fill', '#FFF');
-            });;
+            .attr('class', 'bar');
 
         // NOTE(Olivier): Add new bars
         newBars.append('rect')
@@ -191,7 +169,7 @@ class Bars {
             .attr('class', 'main')
             .attr('x', d => this._selector.x(d) + xDiff)
             .attr('y', d => this._selector.y(d))
-            .style('fill', (d, i) => this._getColor(i))
+            .style('fill', d => this._getColor(d.emotion))
             .attr('height', d => chart.height - this._selector.y(d))
             .attr('width', newBarWidth);
 
@@ -209,7 +187,7 @@ class Bars {
             .attr('x', d => this._selector.x(d) + (barWidth / 2))
             .attr('y', d => this._selector.y(d) - 10)
             .attr('text-anchor', 'middle')
-            .style('opacity', 0)
+            .style('fill', d => this._getColor(d.emotion))
             .text(d => this._selector.value(d));
 
         // NOTE(Olivier): Lets update existing bars
@@ -234,33 +212,35 @@ class Bars {
             .duration(300)
             .attr('x', d => this._selector.x(d) + (barWidth / 2))
             .attr('y', d => this._selector.y(d) - 10)
-            .text(d => this._selector.value(d));;
+            .style('fill', d => this._getColor(d.emotion))
+            .text(d => this._selector.value(d));
     }
 
     _getColor(emotion) {
-        switch (emotion){
-        case 'surprise':
-            return '#FFDF00';
-        case 'afraid':
-            return '#E87A0C';
-        case 'anger':
-            return '#D90429';
-        case 'disgust':
-            return '#451D68';
-        case 'sadness':
-            return '#1D2368';
-        case 'joy':
-            return '#1E4C11';
-        case 'relieve':
-            return '#8D99AE';
-        case 'shame':
-            return '#360F0C';
-        case 'fear':
-            return '#000';
-        case 'guilt':
-            return '#06374F';
-        case 'love':
-            return '#F45B69';
+        switch (emotion) {
+            case 'surprise':
+                return '#bdc3c7';
+            case 'anger':
+                return '#c0392b';
+            case 'disgust':
+                return '#2980b9';
+            case 'sadness':
+                return '#7f8c8d';
+            case 'joy':
+                return '#27ae60';
+            case 'relief':
+                return '#e67e22';
+            case 'shame':
+                return '#8e44ad';
+            case 'fear':
+                return '#34495e';
+            case 'guilt':
+                return '#f1c40f';
+            case 'love':
+                return '#e74c3c';
+            default:
+                console.log(emotion);
+                return '#777'
         }
     }
 

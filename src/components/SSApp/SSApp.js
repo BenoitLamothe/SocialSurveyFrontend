@@ -8,7 +8,7 @@ function SSAppController($interval, $scope, $timeout) {
     const ctrl = this;
 
     ctrl.$onInit = function () {
-        ctrl.wsClient = new WebSocket('ws://172.31.195.115:8080/');
+        ctrl.wsClient = new WebSocket('ws://localhost:8080/');
         ctrl.wsClient.onmessage = ctrl.onWebSocketMessage;
         ctrl.searchRequest = {
             command: 'search',
@@ -25,6 +25,7 @@ function SSAppController($interval, $scope, $timeout) {
         ctrl.availableEmotions = ['surprise', 'anger', 'disgust', 'fear', 'guilt', 'joy', 'love', 'relieve', 'sadness', 'shame'];
         ctrl.emotionData = [];
         ctrl.aggregateData = [];
+        ctrl.aggregateCountry = {};
     };
 
     ctrl.addOrRemoveProvider = function (provider) {
@@ -62,15 +63,22 @@ function SSAppController($interval, $scope, $timeout) {
         ctrl.emotionData.unshift(data);
 
         const emotionIndex = ctrl.aggregateData.findIndex(x => x.emotion === data.emotion);
-        if(emotionIndex > -1) {
+        if (emotionIndex > -1) {
             ctrl.aggregateData[emotionIndex].count++;
             ctrl.aggregateData = [...ctrl.aggregateData];
         } else {
-            ctrl.aggregateData = [...ctrl.aggregateData, {
-                emotion: data.emotion,
-                count: 1
-            }];
+            ctrl.aggregateData = [
+                ...ctrl.aggregateData, {
+                    emotion: data.emotion,
+                    count: 1
+                }
+            ];
         }
+
+        if (data.location) {
+            ctrl.aggregateCountry = Object.assign({}, ctrl.aggregateCountry, { [data.location]: (ctrl.aggregateCountry[data.location] || 0) + 1 })
+        }
+
         console.log(eventData);
         $scope.$apply();
     };
@@ -83,6 +91,10 @@ function SSAppController($interval, $scope, $timeout) {
     // fake data generation
     ctrl.generateFakeDataAtRandomIntervals = function () {
         ctrl.dataInterval = $interval(() => {
+            if (ctrl.emotionData.filter(x => x.provider === 'twitter').length >= ctrl.searchRequest.args.query.max) {
+                ctrl.stopGettingData();
+                return;
+            }
             const randomData = getRandomInt(0, 9);
             $timeout(() => {
                 switch (randomData) {
@@ -119,7 +131,7 @@ function SSAppController($interval, $scope, $timeout) {
                 }
             })
 
-        }, 500);
+        }, 200);
     };
 
     ctrl.stopGettingData = function () {
