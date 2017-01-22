@@ -37,9 +37,12 @@
 		     layout="column"
 		     ng-if="$ctrl.isSearchSuccessfull">
 			<ss-loader ng-if="$ctrl.emotionData.length === 0"></ss-loader>
-			<div ng-if="$ctrl.emotionData.length > 0">
-				<ss-emotion-chart available-emotions="::$ctrl.availableEmotions"
-				                  data="$ctrl.emotionData"></ss-emotion-chart>
+			<div ng-if="$ctrl.emotionData.length > 0" layout="column">
+				<div layout="row">
+					<ss-emotion-chart available-emotions="::$ctrl.availableEmotions"
+									  data="$ctrl.emotionData"></ss-emotion-chart>
+					<ss-world-view></ss-world-view>
+				</div>
 				<ss-emotion-view data="$ctrl.emotionData"></ss-emotion-view>
 			</div>
 		</div>
