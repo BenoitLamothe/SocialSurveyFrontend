@@ -26,7 +26,14 @@ ss-emotion-view {
     overflow: auto;
     border-radius: 3px;
 
-
+    @keyframes example {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    .emotion_fadein {
+      animation-name: example;
+      animation-duration: 1.3333s;
+    }
 
     .icon {
       height: 40px;

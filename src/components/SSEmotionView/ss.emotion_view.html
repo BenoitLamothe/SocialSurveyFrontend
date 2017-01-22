@@ -17,12 +17,20 @@
 		</div>
 		<span> {{($ctrl.data | filter: {provider: 'reddit'}).length}}</span>
 	</div>
+
+	<div layout="row"
+		 layout-align="start center" class="counter-container">
+		<div class="icon reddit active"  style="border-radius: 0;">
+			<i class="fa fa-reddit-alien"></i>
+		</div>
+		<span> {{ $ctrl.computePositivity() }}</span>
+	</div>
 </div>
 <div layout="column"
      class="response-container">
 	<div layout="row"
 	     layout-align="start center"
-	     class="content"
+	     class="content emotion_fadein"
 	     ng-repeat="data in $ctrl.data">
 		<!--Div is required so that img has always the same size-->
 		<div>
