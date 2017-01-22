@@ -1,6 +1,5 @@
 <div layout="row">
-	<button class="button"
-	        ng-click="$ctrl.selectTime(time)"
+	<button ng-click="$ctrl.selectTime(time)"
 	        ng-class="{active: $ctrl.selectedTime === time}"
 	        ng-repeat="time in $ctrl.availableTime">{{time}}
 	</button>
