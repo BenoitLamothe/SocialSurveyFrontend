@@ -63,18 +63,20 @@ function SSAppController($interval, $scope, $timeout) {
         ctrl.emotionData.unshift(data);
 
         const emotionIndex = ctrl.aggregateData.findIndex(x => x.emotion === data.emotion);
-        if(emotionIndex > -1) {
+        if (emotionIndex > -1) {
             ctrl.aggregateData[emotionIndex].count++;
             ctrl.aggregateData = [...ctrl.aggregateData];
         } else {
-            ctrl.aggregateData = [...ctrl.aggregateData, {
-                emotion: data.emotion,
-                count: 1
-            }];
+            ctrl.aggregateData = [
+                ...ctrl.aggregateData, {
+                    emotion: data.emotion,
+                    count: 1
+                }
+            ];
         }
 
         if (data.location) {
-            ctrl.aggregateCountry = Object.assign({}, ctrl.aggregateCountry, {[data.location]: (ctrl.aggregateCountry[data.location] || 0) + 1})
+            ctrl.aggregateCountry = Object.assign({}, ctrl.aggregateCountry, { [data.location]: (ctrl.aggregateCountry[data.location] || 0) + 1 })
         }
 
         console.log(eventData);
@@ -89,6 +91,10 @@ function SSAppController($interval, $scope, $timeout) {
     // fake data generation
     ctrl.generateFakeDataAtRandomIntervals = function () {
         ctrl.dataInterval = $interval(() => {
+            if (ctrl.emotionData.filter(x => x.provider === 'twitter').length >= ctrl.searchRequest.args.query.max) {
+                ctrl.stopGettingData();
+                return;
+            }
             const randomData = getRandomInt(0, 9);
             $timeout(() => {
                 switch (randomData) {
@@ -125,7 +131,7 @@ function SSAppController($interval, $scope, $timeout) {
                 }
             })
 
-        }, 500);
+        }, 200);
     };
 
     ctrl.stopGettingData = function () {
