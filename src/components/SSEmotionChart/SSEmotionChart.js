@@ -11,11 +11,11 @@ function SSEmotionChartController($element, $timeout) {
     ctrl.$onInit = function () {
         ctrl.dataset = [
             {
-                emotion: 'Sadness',
+                emotion: 'sadness',
                 count: 80,
             },
             {
-                emotion: 'Happiness',
+                emotion: 'joy',
                 count: 60
             }
         ];

@@ -98,7 +98,7 @@ class Bars {
                     .transition()
                     .duration(300)
                     .attr('font-size', 15)
-                    .style('fill', '#2EC4B6');
+                    .style('fill', this._getColor(d.emotion));
             })
             .on('mouseout', (d, i, n) => {
                 select(n[i]).select('text')
@@ -112,7 +112,7 @@ class Bars {
             .attr('class', 'main')
             .attr('x', d => this._selector.x(d) + xDiff)
             .attr('y', d => this._selector.y(d))
-            .style('fill', (d, i) => this._getColor(i))
+            .style('fill', (d) => this._getColor(d.emotion))
             .attr('height', d => chart.height - this._selector.y(d))
             .attr('width', newBarWidth);
 
@@ -203,8 +203,31 @@ class Bars {
             .attr('y', baseline - 10);
     }
 
-    _getColor(i) {
-        return i % 2 == 0 ? '#2EC4B6' : '#2EC4B6';
+    _getColor(emotion) {
+        switch (emotion){
+        case 'surprise':
+            return '#FFDF00';
+        case 'afraid':
+            return '#E87A0C';
+        case 'anger':
+            return '#FF0000';
+        case 'disgusted':
+            return '#910CE8';
+        case 'sadness':
+            return '#0D5AFF';
+        case 'joy':
+            return '#2CFF00';
+        case 'relieve':
+            return '#4CE8D0';
+        case 'shame':
+            return '#360F0C';
+        case 'fear':
+            return '#000';
+        case 'guilt':
+            return '#06374F';
+        case 'love':
+            return '#E700FF';
+        }
     }
 
     redraw() {
