@@ -30,8 +30,22 @@
             <button class="button"
                     type="submit"
                     style="margin-left: 5px;"
+                    ng-disabled="$ctrl.searchRequest.args.query.text === ''"
                     ng-click="$ctrl.submitSearch()">Search
             </button>
+        </div>
+        <div class="hint-container" layout="column" ng-if="!$ctrl.isSearchSuccessfull && $ctrl.emotionData.length === 0">
+            <div class="title">Need a hint?</div>
+            <div layout="column">
+                <span>Try the following:</span>
+                <div layout="row">
+                    <ul>
+                        <li ng-click="$ctrl.searchRequest.args.query.text = 'Donald Trump'">Donald Trump</li>
+                        <li ng-click="$ctrl.searchRequest.args.query.text = 'Obama'">Obama</li>
+                        <li ng-click="$ctrl.searchRequest.args.query.text = 'US Inauguration'">US Inauguration</li>
+                    </ul>
+                </div>
+            </div>
         </div>
         <div class="results-container"
              layout="column"

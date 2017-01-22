@@ -11,6 +11,10 @@ ss-app {
     padding: 0px 10px 0px;
     font-family: 'Overpass', sans-serif;
     z-index: 2;
+    border-style: solid;
+    border-color: #f2f2f2;
+    border-width: 2px;
+    outline: none;
   }
   input:focus {
     border-color: @main-color;
@@ -38,8 +42,40 @@ ss-app {
     box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -1px rgba(0, 0, 0, 0.2);
   }
 
+  .button:disabled {
+    background-color: darken(#f0f0f0, 10%);
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: darken(#f0f0f0, 10%);
+      box-shadow: none;
+    }
+  }
+
   .results-container {
     margin-top: 50px;
+  }
+
+  .hint-container {
+    margin-top: 50px;
+    background-color: #f2f2f2;
+    padding: 20px 10px 10px 50px;
+    border-radius: 5px;
+
+    .title {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    ul li {
+      cursor: pointer;
+      outline: none;
+      margin-bottom: 5px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   .provider-icon {

@@ -15,7 +15,7 @@ function SSAppController($interval, $scope, $timeout) {
             providers: ['twitter', 'reddit'],
             args: {
                 query: {
-                    text: 'Obama',
+                    text: '',
                     type: 'popular',
                     time: 'day',
                     max: 50,
