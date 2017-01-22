@@ -24,6 +24,7 @@ function SSAppController($interval, $scope, $timeout) {
         };
         ctrl.availableEmotions = ['surprise', 'anger', 'disgust', 'fear', 'guilt', 'joy', 'love', 'relieve', 'sadness', 'shame'];
         ctrl.emotionData = [];
+        ctrl.aggregateData = [];
     };
 
     ctrl.addOrRemoveProvider = function (provider) {
@@ -60,6 +61,16 @@ function SSAppController($interval, $scope, $timeout) {
         });
         ctrl.emotionData.unshift(data);
 
+        const emotionIndex = ctrl.aggregateData.findIndex(x => x.emotion === data.emotion);
+        if(emotionIndex > -1) {
+            ctrl.aggregateData[emotionIndex].count++;
+            ctrl.aggregateData = [...ctrl.aggregateData];
+        } else {
+            ctrl.aggregateData = [...ctrl.aggregateData, {
+                emotion: data.emotion,
+                count: 1
+            }];
+        }
         console.log(eventData);
         $scope.$apply();
     };
