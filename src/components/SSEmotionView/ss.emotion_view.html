@@ -1,6 +1,25 @@
-<div layout="column" class="response-container">
-	<div layout="row" layout-align="start center" class="content" ng-repeat="response in $ctrl.nuanceResponses">
-		<button class="emotion-label {{response.emotion}}">{{response.emotion}}</button>
-		<span class="analyzed-text">{{response.text}}</span>
+<div layout="row" layout-align="start center" class="provider-counter">
+	<img class="provider-icon active"
+	     src="../../assets/imgs/twitter-icon.svg"> : {{($ctrl.data | filter: {provider: 'twitter'}).length}}
+	<img class="provider-icon active"
+	     src="../../assets/imgs/reddit-icon.svg"> : {{($ctrl.data | filter: {provider: 'reddit'}).length}}
+</div>
+<div layout="column"
+     class="response-container">
+	<div layout="row"
+	     layout-align="start center"
+	     class="content"
+	     ng-repeat="data in $ctrl.data">
+		<!--Div is required so that img has always the same size-->
+		<div>
+			<img ng-if="data.provider === 'twitter'"
+			     class="provider-icon active"
+			     src="../../assets/imgs/twitter-icon.svg">
+			<img ng-if="data.provider === 'reddit'"
+			     class="provider-icon active"
+			     src="../../assets/imgs/reddit-icon.svg">
+		</div>
+		<button class="emotion-label {{data.emotion}}">{{data.emotion}}</button>
+		<span class="analyzed-text" flex>{{data.text}}</span>
 	</div>
 </div>

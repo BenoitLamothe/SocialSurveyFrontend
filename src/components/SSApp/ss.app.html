@@ -1,21 +1,42 @@
 <div layout="column"
      layout-align="center center">
 	<div class="container">
+		<div layout="row"
+		     style="margin-bottom: -2px;">
+			<img ng-click="$ctrl.addOrRemoveProvider('twitter')"
+			     ng-class="{active:$ctrl.searchRequest.providers.indexOf('twitter') !== -1}"
+			     class="provider-icon"
+			     style="margin-left: 0;"
+			     src="../../assets/imgs/twitter-icon.svg">
+			<img ng-click="$ctrl.addOrRemoveProvider('reddit')"
+			     ng-class="{active:$ctrl.searchRequest.providers.indexOf('reddit') !== -1}"
+			     class="provider-icon"
+			     src="../../assets/imgs/reddit-icon.svg">
+			<ss-time-selector style="margin-left: 20px;"
+			                  on-time-select="$ctrl.selectTime"></ss-time-selector>
+			<input type="number"
+			       step="1"
+			       placeholder="Max"
+			       ng-model="$ctrl.searchRequest.args.query.max"
+			       class="input-max"/>
+		</div>
 		<div layout="row">
-			<input placeholder="Type search keywords"
-			       ng-model="$ctrl.searchText"/>
-			<button class="button" type="submit"
+			<input placeholder="Search keywords"
+			       ng-model="$ctrl.searchRequest.args.query.text"/>
+			<button class="button"
+			        type="submit"
 			        ng-click="$ctrl.submitSearch()">Search
 			</button>
 		</div>
 		<div class="results-container"
 		     layout="column"
 		     ng-if="$ctrl.isSearchSuccessfull">
-			<div layout="row">
-				<img style="width: 100%;"
-				     src="http://canvasjs.com/wp-content/uploads/images/gallery/gallery-overview/js-chart.jpg">
+			<ss-loader ng-if="$ctrl.emotionData.length === 0"></ss-loader>
+			<div ng-if="$ctrl.emotionData.length > 0">
+				<ss-emotion-chart available-emotions="::$ctrl.availableEmotions"
+				                  data="$ctrl.emotionData"></ss-emotion-chart>
+				<ss-emotion-view data="$ctrl.emotionData"></ss-emotion-view>
 			</div>
-			<ss-emotion-view></ss-emotion-view>
 		</div>
 	</div>
 </div>

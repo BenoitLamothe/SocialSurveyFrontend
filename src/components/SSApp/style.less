@@ -10,13 +10,14 @@ ss-app {
     font-size: 22px;
     padding: 3px 10px 0px;
     font-family: 'Overpass', sans-serif;
+    z-index: 2;
   }
   input:focus {
     border-color: @main-color;
   }
 
   button {
-    cursor:pointer;
+    cursor: pointer;
     background-color: @main-color;
     text-decoration: none;
     color: #fff;
@@ -29,14 +30,74 @@ ss-app {
     line-height: 36px;
     padding: 0 2rem;
     text-transform: uppercase;
+    outline: none;
   }
 
   .button:hover {
     background-color: lighten(@main-color, 10%);
-    box-shadow: 0 3px 3px 0 rgba(0,0,0,0.14), 0 1px 7px 0 rgba(0,0,0,0.12), 0 3px 1px -1px rgba(0,0,0,0.2);
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -1px rgba(0, 0, 0, 0.2);
   }
 
   .results-container {
     margin-top: 50px;
+  }
+
+  .provider-icon {
+    height: 45px;
+    opacity: 0.4;
+    cursor: pointer;
+    margin: 0 5px 0 5px;
+    &.active {
+      opacity: 1;
+    }
+  }
+
+  .surprise {
+    background-color: #FFDF00;
+  }
+
+  .afraid {
+    background-color: #E87A0C;
+  }
+
+  .anger {
+    background-color: #FF0000;
+  }
+
+  .disgusted {
+    background-color: #910CE8;
+  }
+
+  .sadness {
+    background-color: #0D5AFF;
+  }
+
+  .joy {
+    background-color: #2CFF00;
+  }
+
+  .releaf {
+    background-color: #4CE8D0;
+  }
+
+  .shame {
+    background-color: #360F0C;
+  }
+
+  .fear {
+    background-color: #000;
+  }
+
+  .guilt {
+    background-color: #06374F;
+  }
+
+  .love {
+    background-color: #E700FF;
+  }
+
+  .input-max {
+    max-width: 100px;
+    margin-left: 20px;
   }
 }
