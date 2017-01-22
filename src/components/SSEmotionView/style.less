@@ -13,7 +13,7 @@ ss-emotion-view {
         text-align: center;
         min-width: 42px;
       }
-      .icon{
+      .icon {
         padding: 3px 8px 0 8px;
       }
     }
@@ -23,10 +23,11 @@ ss-emotion-view {
     background-color: @background-color;
     padding: 5px;
     height: 40vh;
-    overflow: auto;
     border-radius: 3px;
 
-
+    .scroll {
+      overflow: auto;
+    }
 
     .icon {
       height: 40px;
@@ -53,13 +54,12 @@ ss-emotion-view {
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
-        line-height: 16px;     /* fallback */
-        max-height: 32px;      /* fallback */
+        line-height: 16px; /* fallback */
+        max-height: 32px; /* fallback */
         -webkit-line-clamp: 2; /* number of lines to show */
         -webkit-box-orient: vertical;
       }
     }
   }
-
 
 }
