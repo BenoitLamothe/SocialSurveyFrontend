@@ -1,62 +1,46 @@
 import template from './ss.emotion_chart.html';
-import * as d3 from 'd3';
+import {BarChart} from '../../charting/BarChart';
 
-SSEmotionChartController.$inject = [];
-function SSEmotionChartController() {
-    let ctrl = this;
+SSEmotionChartController.$inject = ['$element', '$timeout'];
+function SSEmotionChartController($element, $timeout) {
+    const ctrl = this;
+    let chart = null;
+
+    const margin = {top: 20, right: 20, bottom: 30, left: 40};
 
     ctrl.$onInit = function () {
-        ctrl.setup('#chart');
-    };
-
-    ctrl.setup = function (targetID) {
-        var margin          = { top: 0, right: 0, bottom: 0, left: 0 },
-            width           = 600 - margin.left - margin.right,
-            height          = 400 - margin.top - margin.bottom,
-            categoryIndent  = 4 * 15 + 5,
-            defaultBarWidth = 2000;
-
-        //Set up scales
-        var x = d3.scaleLinear()
-        .domain([0, defaultBarWidth])
-        .range([0, width]);
-        var y = d3.scaleOrdinal();
-
-        //Create SVG element
-        d3.select(targetID).selectAll("svg").remove()
-        var svg = d3.select(targetID).append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-        //Package and export settings
-        var settings = {
-            margin: margin, width: width, height: height, categoryIndent: categoryIndent,
-            svg: svg, x: x, y: y
+        ctrl.dataset = [
+            {
+                emotion: 'Sadness',
+                count: 80,
+            },
+            {
+                emotion: 'Happiness',
+                count: 60
+            }
+        ];
+        ctrl.selector = {
+            x: d => d.emotion,
+            y: d => d.count,
+            format: x => x,
         };
-
-        return settings;
     };
 
-    ctrl.redrawChart = function (targetID, newdata) {
-        console.log(settings)
-        //Import settings
-        var margin = settings.margin, width = settings.width, height = settings.height, categoryIndent = settings.categoryIndent,
-            svg                                                                                        = settings.svg, x = settings.x, y = settings.y;
+    ctrl.$onChanges = function(changes) {
+        if(changes.dataset) {
+            chart.dataset = changes.dataset.currentValue;
+        }
+    };
 
-        //Reset domains
-        y.domain(newdata.sort(function (a, b) {
-            return b.value - a.value;
-        })
-        .map(function (d) {
-            return d.key;
-        }));
-        var barmax = d3.max(newdata, function (e) {
-            return e.value;
+    ctrl.$postLink = function() {
+        $timeout(() => {
+            ctrl.target = $element.find('#chart').get(0);
+            const width = ctrl.target.clientWidth - margin.left - margin.right;
+            const height = ctrl.target.clientHeight - margin.top - margin.bottom;
+
+            chart = new BarChart(ctrl.target, width, height, margin, ctrl.selector, ctrl.dataset, {});
+
         });
-        x.domain([0, barmax]);
-
     }
 }
 

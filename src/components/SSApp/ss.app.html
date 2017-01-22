@@ -1,50 +1,50 @@
 <div layout="column"
      layout-align="center center">
-	<div class="container">
-		<div layout="row"
-		     layout-alig="start center"
-		     style="margin-bottom: 5px;">
-			<div class="icon twitter"
-			     ng-click="$ctrl.addOrRemoveProvider('twitter')"
-			     ng-class="{active:$ctrl.searchRequest.providers.indexOf('twitter') !== -1}" style="margin-right:10px;">
-				<i class="fa fa-twitter"
-				   aria-hidden="true"></i>
-			</div>
-			<div class="icon reddit"
-			     ng-click="$ctrl.addOrRemoveProvider('reddit')"
-			     ng-class="{active:$ctrl.searchRequest.providers.indexOf('reddit') !== -1}">
-				<i class="fa fa-reddit-alien"
-				   aria-hidden="true"></i>
-			</div>
-			<ss-time-selector style="margin-left: 20px;"
-			                  on-time-select="$ctrl.selectTime"></ss-time-selector>
-			<input type="number"
-			       step="1"
-			       placeholder="Max"
-			       ng-model="$ctrl.searchRequest.args.query.max"
-			       class="input-max"/>
-		</div>
-		<div layout="row">
-			<input placeholder="Search keywords"
-			       ng-model="$ctrl.searchRequest.args.query.text"/>
-			<button class="button"
-			        type="submit"
-			        style="margin-left: 5px;"
-			        ng-click="$ctrl.submitSearch()">Search
-			</button>
-		</div>
-		<div class="results-container"
-		     layout="column"
-		     ng-if="$ctrl.isSearchSuccessfull">
-			<ss-loader ng-if="$ctrl.emotionData.length === 0"></ss-loader>
-			<div ng-if="$ctrl.emotionData.length > 0" layout="column">
-				<div layout="row">
-					<ss-emotion-chart available-emotions="::$ctrl.availableEmotions"
-									  data="$ctrl.emotionData"></ss-emotion-chart>
-					<ss-world-view></ss-world-view>
-				</div>
-				<ss-emotion-view data="$ctrl.emotionData"></ss-emotion-view>
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div layout="row"
+             layout-alig="start center"
+             style="margin-bottom: 5px;">
+            <div class="icon twitter"
+                 ng-click="$ctrl.addOrRemoveProvider('twitter')"
+                 ng-class="{active:$ctrl.searchRequest.providers.indexOf('twitter') !== -1}" style="margin-right:10px;">
+                <i class="fa fa-twitter"
+                   aria-hidden="true"></i>
+            </div>
+            <div class="icon reddit"
+                 ng-click="$ctrl.addOrRemoveProvider('reddit')"
+                 ng-class="{active:$ctrl.searchRequest.providers.indexOf('reddit') !== -1}">
+                <i class="fa fa-reddit-alien"
+                   aria-hidden="true"></i>
+            </div>
+            <ss-time-selector style="margin-left: 20px;"
+                              on-time-select="$ctrl.selectTime"></ss-time-selector>
+            <input type="number"
+                   step="1"
+                   placeholder="Max"
+                   ng-model="$ctrl.searchRequest.args.query.max"
+                   class="input-max"/>
+        </div>
+        <div layout="row">
+            <input placeholder="Search keywords"
+                   ng-model="$ctrl.searchRequest.args.query.text"/>
+            <button class="button"
+                    type="submit"
+                    style="margin-left: 5px;"
+                    ng-click="$ctrl.submitSearch()">Search
+            </button>
+        </div>
+        <div class="results-container"
+             layout="column"
+             ng-if="$ctrl.isSearchSuccessfull">
+            <ss-loader ng-if="$ctrl.emotionData.length === 0"></ss-loader>
+            <div ng-if="$ctrl.emotionData.length > 0" layout="column">
+                <div layout="row" layout-align=" center">
+                    <ss-emotion-chart flex available-emotions="::$ctrl.availableEmotions"
+                                      data="$ctrl.emotionData"></ss-emotion-chart>
+                    <ss-world-view></ss-world-view>
+                </div>
+                <ss-emotion-view data="$ctrl.emotionData"></ss-emotion-view>
+            </div>
+        </div>
+    </div>
 </div>

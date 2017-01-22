@@ -135,8 +135,8 @@ function SSWorldViewController($element) {
 
             render = function() {
                 context.clearRect(0, 0, width, height);
-                context.beginPath(), path(sphere), context.fillStyle = "#fff", context.fill();
-                context.beginPath(), path(land), context.fillStyle = "#000", context.fill();
+                context.beginPath(), path(sphere), context.fillStyle = "#011627", context.fill();
+                context.beginPath(), path(land), context.fillStyle = "#2EC4B6", context.fill();
                 context.beginPath(), path(sphere), context.stroke();
             };
 
